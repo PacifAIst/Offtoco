@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⬡ Offtoco
+# ⬡ OFFTOCO
 
 **Offline Token Counter**
 
