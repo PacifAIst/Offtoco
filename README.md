@@ -39,7 +39,7 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2.png)
 
-**CLI output in terminal (Linux / MacOS / Windows console)**
+**CLI output in terminal (Linux / macOS / Windows console)**
 
 ![Offtoco CLI](https://github.com/PacifAIst/Offtoco/blob/main/images/3.png)
 
