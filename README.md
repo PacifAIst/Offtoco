@@ -2,7 +2,7 @@
 
 # ⬡ OFFTOCO
 
-**Offline Token Counter**
+**OFFline TOken COunter**
 
 Count tokens for ChatGPT, Claude and Gemini simultaneously.
 Get a SHA-256 fingerprint of your text.
