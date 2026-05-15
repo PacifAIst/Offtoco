@@ -4,31 +4,28 @@
 
 **Offline Token Counter**
 
-Count tokens for ChatGPT, Claude and Gemini at the same time.
+Count tokens for ChatGPT, Claude and Gemini simultaneously.
 Get a SHA-256 fingerprint of your text.
-Works completely offline — your text never leaves your device.
+100% offline — your text never leaves your device.
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-black?style=flat-square)](LICENSE)
 [![Zero Knowledge](https://img.shields.io/badge/zero--knowledge-%E2%9C%93-black?style=flat-square)]()
 [![No WASM](https://img.shields.io/badge/WASM-free-black?style=flat-square)]()
-[![Platform](https://img.shields.io/badge/Web%20%7C%20CLI%20%7C%20Windows-black?style=flat-square)]()
+[![Platforms](https://img.shields.io/badge/Web%20%7C%20CLI%20%7C%20Windows-black?style=flat-square)]()
 
 </div>
 
 ---
 
-## What does it do?
+## What is a token?
 
-When you write a prompt for an AI model, each model counts words differently — they break text into "tokens". A token is roughly 3–4 characters. Models charge by the token and have token limits, so knowing the count matters.
+AI models don't read word by word — they break text into fragments called **tokens** (roughly 3–4 characters each). Every model has its own way of splitting text, so the same sentence gives different token counts on GPT, Claude and Gemini. Token counts matter because:
 
-Offtoco counts tokens for three model families at once, instantly, without sending your text anywhere:
+- Models have **context limits** measured in tokens
+- API usage is **billed per token**
+- Prompt design depends on knowing how many tokens you are using
 
-| | GPT (ChatGPT, GPT-4o) | Claude (Anthropic) | Gemini (Google) |
-|---|---|---|---|
-| Vocabulary size | 200,000 tokens | 64,739 tokens | 256,000 tokens |
-| Same text, different count? | Yes — each model tokenises differently |
-
-It also computes a **SHA-256 fingerprint** — a unique hash of your text that lets you verify a document hasn't changed, without revealing its contents.
+Offtoco counts all three at once, instantly, with no internet connection required.
 
 ---
 
@@ -42,46 +39,65 @@ It also computes a **SHA-256 fingerprint** — a unique hash of your text that l
 
 ![Offtoco web app dark mode](docs/screenshot-web-dark.png)
 
-**CLI output**
+**CLI output in terminal**
 
-![Offtoco CLI output](docs/screenshot-cli.png)
+![Offtoco CLI](docs/screenshot-cli.png)
 
 **Windows desktop popup**
 
-![Offtoco Windows desktop popup](docs/screenshot-desktop-popup.png)
+![Offtoco desktop popup](docs/screenshot-desktop-popup.png)
 
-**Windows right-click context menu**
+**Windows Explorer right-click menu**
 
-![Offtoco Windows right-click context menu](docs/screenshot-context-menu.png)
-
----
-
-## Download and use — no installation required
-
-### Option A: Web app (easiest — works on any device)
-
-1. **[Download offtoco-web.zip](https://github.com/PacifAIst/Offtoco/releases/latest)** from the Releases page
-2. Unzip it anywhere on your computer
-3. Open `index.html` in your browser
-4. Done — paste text, drop files, copy counts
-
-No server needed. No internet needed after download. Works on Windows, macOS, and Linux.
+![Offtoco right-click context menu](docs/screenshot-context-menu.png)
 
 ---
 
-### Option B: Windows desktop app
+## Download — no installation, no internet needed after download
 
-1. **[Download Offtoco Setup 0.1.0.exe](https://github.com/PacifAIst/Offtoco/releases/latest)** from the Releases page
-2. Run the installer — choose your install folder
-3. Right-click any file in Explorer → **Count Tokens (Offtoco)**
-4. Or right-click the desktop → **Count Clipboard Text (Offtoco)**
+All downloads are on the **[Releases page](https://github.com/PacifAIst/Offtoco/releases/latest)**.
 
-The popup shows token counts and SHA-256 for the file or clipboard text.
+---
 
-To enable the right-click menus, open PowerShell from the Offtoco install folder and run:
+### Web app — works on any computer or OS
+
+> Unzip once, open in browser, done. No server, no Node.js, no internet.
+
+1. Download **`offtoco-web.zip`**
+2. Unzip it — you get a folder called `offtoco-web`
+3. Open `offtoco-web/index.html` in any browser (Chrome, Firefox, Edge, Safari)
+4. Paste text, drop files, copy counts — everything works offline
+
+To put it on your own server or intranet, copy the `offtoco-web` folder to any static file host — nginx, Apache, Caddy, GitHub Pages, Netlify, a USB stick served by Python. No backend required.
+
+```bash
+# Example: serve locally with Python (any OS)
+cd offtoco-web
+python3 -m http.server 8080
+# Open http://localhost:8080
+```
+
+```nginx
+# Example: nginx on any Linux server
+server {
+    listen 80;
+    server_name tokens.yourdomain.com;
+    root /var/www/offtoco-web;
+    index index.html;
+}
+```
+
+---
+
+### Windows desktop app
+
+> Right-click any file in Explorer to count its tokens. No terminal needed.
+
+1. Download **`Offtoco Setup 0.1.0.exe`**
+2. Run the installer — pick your install folder, click Install
+3. Register the right-click menus (one-time setup, no admin needed):
 
 ```powershell
-# Update the path below to match where you installed Offtoco
 $exe = 'C:\Program Files\Offtoco\Offtoco.exe'
 $cmd = "`"$exe`" --file `"%1`""
 reg add "HKCU\Software\Classes\*\shell\Offtoco" /ve /d "Count Tokens (Offtoco)" /f
@@ -90,93 +106,107 @@ New-Item -Path "HKCU:\Software\Classes\Directory\Background\shell\Offtoco" -Valu
 New-Item -Path "HKCU:\Software\Classes\Directory\Background\shell\Offtoco\command" -Value "`"$exe`"" -Force
 ```
 
-No administrator rights needed — entries go into your user registry only.
+Now right-click any file in Explorer and choose **Count Tokens (Offtoco)**.
 
-To remove the context menus:
+**Global hotkey:** with the app running in the system tray, press **Ctrl+Alt+T** to count whatever text is currently in your clipboard.
+
+To remove the right-click menus:
 ```powershell
-Remove-Item "HKCU:\Software\Classes\*\shell\Offtoco" -Recurse -Force
-Remove-Item "HKCU:\Software\Classes\Directory\Background\shell\Offtoco" -Recurse -Force
+Remove-Item "HKCU:\Software\Classes\*\shell\Offtoco" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "HKCU:\Software\Classes\Directory\Background\shell\Offtoco" -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-**Global hotkey:** with the app running in the system tray, press **Ctrl+Alt+T** to count whatever text is in your clipboard.
+**Popup layout:**
+```
++- [hex] OFFTOCO --------------------------------- [x] -+
+|  GPT     o200k_base         1,234   tok   [ Copy ]    |
+|  Claude  Anthropic          1,189   tok   [ Copy ]    |
+|  Gemini  256k vocab         1,301   tok   [ Copy ]    |
+|  SHA-256 a3f4b2c1...f1a2            [ Copy ]          |
++- github.com/PacifAIst/Offtoco ----------- [ Close ] --+
+```
 
 ---
 
-### Option C: CLI — Windows, Linux, macOS
+### CLI — Windows, Linux, macOS
 
-1. **[Download the binary](https://github.com/PacifAIst/Offtoco/releases/latest)** for your platform:
-   - `offtoco-cli-windows.zip` → extract `offtoco-win.exe`
-   - `offtoco-cli-linux.zip`   → extract `offtoco-linux-x64`
-   - `offtoco-cli-macos.zip`   → extract `offtoco-macos-x64`
-2. Put it somewhere on your PATH (optional but convenient)
-3. Run it:
+> Count tokens from the terminal or script it into your workflow.
+
+**Download and extract** the zip for your platform:
+
+| Platform | Download | Extract and rename to |
+|---|---|---|
+| Windows | `offtoco-cli-windows.zip` | `offtoco.exe` |
+| Linux | `offtoco-cli-linux.zip` | `offtoco` |
+| macOS Intel | `offtoco-cli-macos.zip` | `offtoco` |
+
+**Linux / macOS — make executable after extracting:**
+```bash
+chmod +x offtoco
+./offtoco hello world
+```
+
+**Windows:**
+```powershell
+.\offtoco.exe hello world
+```
+
+**All usage options:**
 
 ```bash
-# Windows
-offtoco-win.exe hello world
-offtoco-win.exe -f my-document.txt
-
-# Linux / macOS (make executable first)
-chmod +x offtoco-linux-x64
-./offtoco-linux-x64 hello world
-./offtoco-linux-x64 -f my-document.txt
+offtoco hello world                  # text from arguments
+offtoco -t "The quick brown fox"     # explicit text flag
+offtoco -f my-document.txt           # read from file
+cat file.txt | offtoco               # pipe from stdin
+offtoco --json -f file.txt           # JSON output for scripting
+offtoco --help                       # show all options
 ```
 
-Output:
+**Output:**
 ```
-GPT              2  tokens
-Claude           2  tokens
-Gemini           2  tokens
-SHA-256 b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9
-```
-
-All flags:
-
-| Flag | What it does |
-|---|---|
-| `offtoco hello world` | Count tokens in the text that follows |
-| `offtoco -t "text here"` | Same, with explicit flag |
-| `offtoco -f file.txt` | Count tokens in a file |
-| `echo "text" \| offtoco` | Read from stdin (pipe) |
-| `offtoco --json -f file.txt` | Output as JSON for scripting |
-| `offtoco --help` | Show usage |
-
----
-
-### Option D: Self-hosted web server
-
-The web app is a static folder — no backend, no database, no runtime.
-
-```bash
-# On any Linux server
-unzip offtoco-web.zip -d /var/www/offtoco
-# Point nginx / Apache / Caddy at /var/www/offtoco
-# Done — the app is live at your domain
+GPT              18  tokens
+Claude           17  tokens
+Gemini           22  tokens
+SHA-256 c02d938580319068f8ab754ff664f289f13ab0bf4c5245acc29b14b668b5a9f8
 ```
 
-Nginx example:
-```nginx
-server {
-    listen 80;
-    server_name tokens.yourdomain.com;
-    root /var/www/offtoco;
-    index index.html;
+**JSON output** (`--json` flag) for use in scripts:
+```json
+{
+  "gpt": 18,
+  "claude": 17,
+  "gemini": 22,
+  "sha256": "c02d938580319068f8ab754ff664f289f13ab0bf4c5245acc29b14b668b5a9f8",
+  "chars": 63
 }
 ```
 
 ---
 
+## Tokenizers
+
+| Model | Vocabulary | Package | License |
+|---|---|---|---|
+| GPT (o200k_base) | 200,000 tokens | `js-tiktoken` | MIT |
+| Claude (Anthropic BPE) | 64,739 tokens | `@anthropic-ai/tokenizer` vocab + `js-tiktoken` engine | Apache-2.0 |
+| Gemini | 256,000 tokens | `@lenml/tokenizer-gemini` | Apache-2.0 |
+
+> **Zero WASM.** The standard Claude tokenizer package ships a WebAssembly binary that browsers reject. Offtoco extracts the raw vocabulary at install time and uses the same pure-JS engine as GPT — counts are bit-for-bit identical, with no WASM in the browser bundle.
+
+---
+
 ## Privacy
 
-Offtoco was designed from the ground up to be zero-knowledge:
+| | |
+|---|---|
+| Network requests | None — ever |
+| Telemetry | None |
+| Analytics | None |
+| Auto-update checks | None |
+| Data stored | Nothing — not even locally |
+| Verification | Full source code in this repository |
 
-- The web app runs entirely in your browser. No requests are made to any server.
-- The CLI and desktop app have no network code at all.
-- All three tokenizer vocabularies are bundled locally.
-- The SHA-256 hash is computed on your device using the operating system's native crypto.
-- There is no analytics, no telemetry, no error reporting, and no auto-update check.
-
-You can verify this by inspecting the source code — everything is here in this repository.
+The web app can be opened directly from a USB stick on an air-gapped machine. The CLI binary has no network code. The desktop app has no network code. All tokenizer vocabularies are bundled at install time.
 
 ---
 
@@ -187,26 +217,42 @@ You can verify this by inspecting the source code — everything is here in this
 - Node.js >= 20 — [nodejs.org](https://nodejs.org)
 - pnpm >= 8 — `npm install -g pnpm`
 
-### Install and test
+### Install
 
 ```bash
 git clone https://github.com/PacifAIst/Offtoco.git
 cd Offtoco
-pnpm install        # also runs scripts/gen-claude-vocab.js automatically
-pnpm run smoke      # should print OK with GPT=18, Claude=17, Gemini=22
+pnpm install
+# postinstall auto-generates core/claude-vocab.js
+```
+
+### Verify
+
+```bash
+pnpm run smoke
+# GPT=18, Claude=17, Gemini=22 — OK
 ```
 
 ### Web app
 
 ```bash
-pnpm web:dev        # dev server at http://localhost:5173
-pnpm web:build      # production build -> dist/web/
+pnpm web:dev        # dev server -> http://localhost:5173
+pnpm web:build      # production -> dist/web/
 ```
 
-### CLI binaries
+### Create the web zip (unzip-and-run distribution)
 
 ```powershell
-# Windows — builds ~95 MB standalone executables
+New-Item -ItemType Directory -Force -Path dist\zips\offtoco-web | Out-Null
+Copy-Item dist\web\* dist\zips\offtoco-web\ -Recurse
+Compress-Archive -Path dist\zips\offtoco-web -DestinationPath dist\zips\offtoco-web.zip -Force
+Remove-Item dist\zips\offtoco-web -Recurse -Force
+```
+
+### CLI binaries (~85-95 MB each, standalone, no Node required)
+
+```powershell
+# Windows PowerShell — builds for Win, Linux, macOS
 pnpm add -D @yao-pkg/pkg
 npx esbuild cli/offtoco.js --bundle --platform=node --target=node20 --outfile=cli/offtoco.bundle.js --external:electron --format=cjs
 npx pkg cli/offtoco.bundle.js --config cli/pkg.config.json --targets "node20-win-x64,node20-linux-x64,node20-macos-x64" --output "dist/cli/offtoco"
@@ -217,87 +263,64 @@ npx pkg cli/offtoco.bundle.js --config cli/pkg.config.json --targets "node20-win
 bash cli/build.sh
 ```
 
-### Create portable zips for distribution
-
+Create zip for each binary:
 ```powershell
-# After building the web app and CLI binaries:
-powershell -ExecutionPolicy Bypass -File cli\build-zip.ps1
-# Creates dist\zips\offtoco-web.zip, offtoco-cli-windows.zip, etc.
+New-Item -ItemType Directory -Force -Path dist\zips | Out-Null
+Compress-Archive -Path dist\cli\offtoco-win.exe -DestinationPath dist\zips\offtoco-cli-windows.zip -Force
+Compress-Archive -Path dist\cli\offtoco-linux   -DestinationPath dist\zips\offtoco-cli-linux.zip   -Force
+Compress-Archive -Path dist\cli\offtoco-macos   -DestinationPath dist\zips\offtoco-cli-macos.zip   -Force
 ```
 
-### Windows desktop installer
+### Windows desktop installer (~114 MB)
 
 ```powershell
 cd desktop
 npm install --legacy-peer-deps
 npx esbuild main.js --bundle --platform=node --target=node20 --outfile=main.bundle.js --external:electron --format=cjs
 npx electron-builder --win
-# Output: desktop\dist\Offtoco Setup 0.1.0.exe  (~114 MB)
+# Output: desktop\dist\Offtoco Setup 0.1.0.exe
 ```
-
-### Why no WASM?
-
-The standard `@anthropic-ai/tokenizer` package ships a WebAssembly binary. Vite (the web bundler) rejects WASM imports that use the ESM proposal syntax, and adding a plugin just to fix this felt wrong for a tool that prides itself on simplicity.
-
-The solution: a `postinstall` script (`scripts/gen-claude-vocab.js`) reads the raw BPE vocabulary from the package and writes it as a plain JavaScript module (`core/claude-vocab.js`). This file is fed into the same pure-JS `js-tiktoken` engine used for GPT. Token counts are bit-for-bit identical to the official package — no WASM anywhere.
 
 ### Repo structure
 
 ```
 Offtoco/
 |
-+-- package.json          pnpm root  (type: module)
-+-- vite.config.js        Vite config
++-- package.json              pnpm root (type: module)
++-- vite.config.js
 +-- README.md
++-- docs/                     screenshots for this README
 |
-+-- core/                 Shared tokenizer logic — Node and browser
-|   +-- tokenizers.js
-|   +-- sha256.js
-|   +-- format.js
-|   +-- smoke-test.js
-|   \-- claude-vocab.js   auto-generated on pnpm install, gitignored
++-- core/                     shared tokenizer logic — Node and browser
+|   +-- tokenizers.js         initTokenizers(), countAll() -> {gpt, claude, gemini}
+|   +-- sha256.js             sha256hex() — SubtleCrypto / Node crypto
+|   +-- format.js             fmt(1234567) -> "1,234,567"
+|   +-- smoke-test.js         pnpm run smoke
+|   \-- claude-vocab.js       auto-generated by postinstall, gitignored
 |
 +-- scripts/
-|   \-- gen-claude-vocab.js
+|   \-- gen-claude-vocab.js   extracts claude.json -> plain ES module
 |
-+-- web/                  Browser app (Vite 5)
++-- web/                      browser app (Vite 5)
 |   +-- index.html
 |   +-- main.js
 |   \-- style.css
 |
-+-- cli/                  Command-line tool
-|   +-- offtoco.js
-|   +-- pkg.config.json
-|   +-- build.sh
-|   +-- build.ps1
-|   \-- build-zip.ps1     creates portable zips for distribution
++-- cli/                      command-line tool
+|   +-- offtoco.js            entry point
+|   +-- pkg.config.json       asset manifest
+|   +-- build.sh              Linux / macOS build
+|   \-- build.ps1             Windows build
 |
-+-- desktop/              Windows Electron app
-|   +-- main.js
-|   +-- preload.js
-|   +-- popup.html / css / js
-|   +-- package.json
-|   +-- install-registry.ps1
-|   +-- uninstall-registry.ps1
-|   \-- build.ps1
-|
-\-- docs/                 Screenshots for this README
-    +-- screenshot-web-light.png
-    +-- screenshot-web-dark.png
-    +-- screenshot-cli.png
-    +-- screenshot-desktop-popup.png
-    \-- screenshot-context-menu.png
+\-- desktop/                  Windows Electron app
+    +-- main.js               main process
+    +-- preload.js            IPC bridge
+    +-- popup.html/css/js     popup UI
+    +-- package.json          electron-builder config
+    +-- install-registry.ps1
+    +-- uninstall-registry.ps1
+    \-- build.ps1             esbuild + electron-builder
 ```
-
----
-
-## Tokenizer details
-
-| Engine | Package | Vocabulary | License |
-|---|---|---|---|
-| GPT (o200k_base) | `js-tiktoken` | 200,000 tokens | MIT |
-| Claude | `@anthropic-ai/tokenizer` vocab + `js-tiktoken` | 64,739 tokens | Apache-2.0 |
-| Gemini | `@lenml/tokenizer-gemini` | 256,000 tokens | Apache-2.0 |
 
 ---
 
@@ -305,11 +328,11 @@ Offtoco/
 
 1. Fork and clone
 2. `pnpm install`
-3. Make changes in `core/`, `web/`, `cli/`, or `desktop/`
-4. `pnpm run smoke` must still pass
+3. Edit in `core/`, `web/`, `cli/`, or `desktop/`
+4. `pnpm run smoke` must pass
 5. Open a pull request
 
-The two hard design constraints are **zero-knowledge** (no network calls, ever) and **zero-WASM** (no WebAssembly in the browser bundle).
+Hard constraints: **zero network calls** and **zero WASM in the browser bundle**.
 
 ---
 
@@ -317,4 +340,5 @@ The two hard design constraints are **zero-knowledge** (no network calls, ever) 
 
 **GPL-3.0-or-later** (c) [PacifAIst](https://github.com/PacifAIst)
 
-Bundled tokenizer vocabularies keep their original upstream licenses (MIT and Apache-2.0), both compatible with GPL-3.0 downstream distribution.
+Tokenizer vocabularies keep their upstream licenses (MIT and Apache-2.0),
+both compatible with GPL-3.0 downstream distribution.
