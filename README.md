@@ -49,7 +49,7 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 **Windows Explorer right-click menu**
 
-[![Offtoco right-click context menu]](https://github.com/PacifAIst/Offtoco/blob/main/images/5.png)
+![Offtoco right-click context menu](https://github.com/PacifAIst/Offtoco/blob/main/images/5.png)
 
 ---
 
