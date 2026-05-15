@@ -1,0 +1,15 @@
+{
+  "pkg": {
+    "assets": [
+      "core/claude-vocab.js",
+      "node_modules/js-tiktoken/ranks/o200k_base",
+      "node_modules/@lenml/tokenizer-gemini/models/**/*",
+      "node_modules/@lenml/tokenizers/dist/**/*"
+    ],
+    "scripts": [
+      "core/tokenizers.js",
+      "core/sha256.js",
+      "core/format.js"
+    ]
+  }
+}

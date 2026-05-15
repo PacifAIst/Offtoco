@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'"/>
+  <title>Offtoco</title>
+  <link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+
+  <div class="titlebar">
+    <div class="brand">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+        <polygon points="10,1 19,6 19,14 10,19 1,14 1,6" stroke="currentColor" stroke-width="1.5"/>
+        <polygon points="10,5 15,8 15,12 10,15 5,12 5,8"  stroke="currentColor" stroke-width="1"/>
+      </svg>
+      Offtoco
+    </div>
+    <button class="btn-x" id="closeX" title="Close">✕</button>
+  </div>
+
+  <div class="rows" id="rows">
+    <div class="row" id="row-gpt">
+      <span class="lbl">GPT</span>
+      <span class="hint">o200k_base</span>
+      <span class="val" id="val-gpt">—</span>
+      <span class="unit">tok</span>
+      <button class="btn-copy" data-id="val-gpt" data-toast="toast-gpt">Copy</button>
+      <span class="toast" id="toast-gpt">✓</span>
+    </div>
+    <div class="row" id="row-claude">
+      <span class="lbl">Claude</span>
+      <span class="hint">Anthropic</span>
+      <span class="val" id="val-claude">—</span>
+      <span class="unit">tok</span>
+      <button class="btn-copy" data-id="val-claude" data-toast="toast-claude">Copy</button>
+      <span class="toast" id="toast-claude">✓</span>
+    </div>
+    <div class="row" id="row-gemini">
+      <span class="lbl">Gemini</span>
+      <span class="hint">256k vocab</span>
+      <span class="val" id="val-gemini">—</span>
+      <span class="unit">tok</span>
+      <button class="btn-copy" data-id="val-gemini" data-toast="toast-gemini">Copy</button>
+      <span class="toast" id="toast-gemini">✓</span>
+    </div>
+    <div class="row row-sha" id="row-sha">
+      <span class="lbl">SHA-256</span>
+      <span class="val sha-val" id="val-sha">—</span>
+      <button class="btn-copy" data-id="val-sha" data-toast="toast-sha">Copy</button>
+      <span class="toast" id="toast-sha">✓</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="#" id="repoLink">github.com/PacifAIst/Offtoco</a>
+    <button class="btn-close" id="closeBtn">Close</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

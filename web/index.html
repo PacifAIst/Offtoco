@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Offline token counter for GPT, Claude and Gemini. Zero-knowledge — nothing leaves your browser." />
+  <title>Offtoco — Offline Token Counter</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <polygon points="10,1 19,6 19,14 10,19 1,14 1,6" stroke="currentColor" stroke-width="1.5"/>
+        <polygon points="10,5 15,8 15,12 10,15 5,12 5,8" stroke="currentColor" stroke-width="1"/>
+      </svg>
+      <span class="brand-name">Offtoco</span>
+    </div>
+
+    <nav class="header-right">
+      <a class="gh-link" href="https://github.com/PacifAIst/Offtoco" target="_blank" rel="noopener" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+      <button id="themeBtn" class="theme-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="theme-icon-light">◐</span>
+        <span class="theme-icon-dark">◑</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ── Disclaimer ─────────────────────────────────────────── -->
+  <div class="disclaimer" role="note">
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1" y="4" width="14" height="10" rx="1" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M5 4V3a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="8" cy="9" r="1" fill="currentColor"/>
+      <line x1="8" y1="10" x2="8" y2="12" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Zero-knowledge &mdash; all computation runs locally in your browser.
+    No text, no data, no telemetry is transmitted anywhere.
+  </div>
+
+  <!-- ── Main ───────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Input area + drag-and-drop -->
+    <div class="editor-shell" id="dropzone">
+      <div class="editor-label">INPUT</div>
+      <textarea
+        id="inputText"
+        class="editor"
+        placeholder="Paste or type text here, or drop any file…"
+        spellcheck="false"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        aria-label="Text input for token counting"
+      ></textarea>
+      <div class="drop-overlay" id="dropOverlay" aria-hidden="true">
+        <div class="drop-msg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Drop file to count tokens
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <label class="toolbar-btn upload-btn" for="fileInput" title="Upload a file">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M10 13V4m0 0L6.5 7.5M10 4l3.5 3.5"/>
+          <path d="M3 14v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"/>
+        </svg>
+        Upload file
+        <input type="file" id="fileInput" hidden aria-label="Upload file" />
+      </label>
+
+      <button class="toolbar-btn clear-btn" id="clearBtn" title="Clear input">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <line x1="5" y1="5" x2="15" y2="15"/>
+          <line x1="15" y1="5" x2="5" y2="15"/>
+        </svg>
+        Clear
+      </button>
+
+      <span class="meta-info" id="metaInfo"></span>
+    </div>
+
+    <!-- Init status -->
+    <div class="init-status" id="initStatus">
+      <span class="init-dot"></span>
+      Initialising tokenisers…
+    </div>
+
+    <!-- Results -->
+    <section class="results" id="results" aria-live="polite" aria-label="Token counts">
+
+      <!-- GPT card -->
+      <article class="card" id="card-gpt">
+        <header class="card-head">
+          <div>
+            <span class="card-engine">GPT</span>
+            <span class="card-model">o200k_base</span>
+          </div>
+          <div class="card-actions">
+            <button class="copy-btn" data-target="val-gpt" data-copied="copied-gpt" aria-label="Copy GPT token count">Copy</button>
+            <span class="copied-toast" id="copied-gpt" aria-live="assertive">Copied</span>
+          </div>
+        </header>
+        <div class="card-count" id="val-gpt">—</div>
+        <div class="card-unit">tokens</div>
+      </article>
+
+      <!-- Claude card -->
+      <article class="card" id="card-claude">
+        <header class="card-head">
+          <div>
+            <span class="card-engine">Claude</span>
+            <span class="card-model">Anthropic</span>
+          </div>
+          <div class="card-actions">
+            <button class="copy-btn" data-target="val-claude" data-copied="copied-claude" aria-label="Copy Claude token count">Copy</button>
+            <span class="copied-toast" id="copied-claude" aria-live="assertive">Copied</span>
+          </div>
+        </header>
+        <div class="card-count" id="val-claude">—</div>
+        <div class="card-unit">tokens</div>
+      </article>
+
+      <!-- Gemini card -->
+      <article class="card" id="card-gemini">
+        <header class="card-head">
+          <div>
+            <span class="card-engine">Gemini</span>
+            <span class="card-model">256k vocab</span>
+          </div>
+          <div class="card-actions">
+            <button class="copy-btn" data-target="val-gemini" data-copied="copied-gemini" aria-label="Copy Gemini token count">Copy</button>
+            <span class="copied-toast" id="copied-gemini" aria-live="assertive">Copied</span>
+          </div>
+        </header>
+        <div class="card-count" id="val-gemini">—</div>
+        <div class="card-unit">tokens</div>
+      </article>
+
+      <!-- SHA-256 card — full width -->
+      <article class="card card-sha" id="card-sha">
+        <header class="card-head">
+          <div>
+            <span class="card-engine">SHA-256</span>
+            <span class="card-model">fingerprint</span>
+          </div>
+          <div class="card-actions">
+            <button class="copy-btn" data-target="val-sha" data-copied="copied-sha" aria-label="Copy SHA-256 hash">Copy</button>
+            <span class="copied-toast" id="copied-sha" aria-live="assertive">Copied</span>
+          </div>
+        </header>
+        <div class="card-count card-hash" id="val-sha">—</div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <a href="https://github.com/PacifAIst/Offtoco" target="_blank" rel="noopener">PacifAIst/Offtoco</a>
+    <span class="footer-sep">·</span>
+    <span>GPL-3.0</span>
+    <span class="footer-sep">·</span>
+    <span>Offline. Always.</span>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

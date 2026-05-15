@@ -1,0 +1,45 @@
+{
+  "name": "offtoco-desktop",
+  "version": "0.1.0",
+  "description": "Offtoco desktop app",
+  "main": "main.bundle.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron main.js",
+    "build": "electron-builder --win"
+  },
+  "dependencies": {
+    "@anthropic-ai/tokenizer": "^0.0.4",
+    "@lenml/tokenizer-gemini": "^3.7.2",
+    "js-tiktoken": "^1.0.21"
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.0.0",
+    "esbuild": "^0.21.0"
+  },
+  "build": {
+    "appId": "org.pacifaist.offtoco",
+    "productName": "Offtoco",
+    "asar": true,
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "extraResources": [
+      { "from": "../core/claude-vocab.js", "to": "claude-vocab.js" },
+      { "from": "../core/sha256.js",       "to": "sha256.js" },
+      { "from": "../core/format.js",       "to": "format.js" }
+    ],
+    "files": [
+      "main.bundle.js",
+      "preload.js",
+      "popup.html",
+      "popup.css",
+      "popup.js"
+    ]
+  }
+}
