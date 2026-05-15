@@ -8,6 +8,8 @@ Count tokens for ChatGPT, Claude and Gemini simultaneously.
 Get a SHA-256 fingerprint of your text.
 100% offline — your text never leaves your device, not even if attach files.
 
+![Offtoco desktop popup](https://github.com/PacifAIst/Offtoco/blob/main/images/4.png)
+
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-black?style=flat-square)](LICENSE)
 [![Zero Knowledge](https://img.shields.io/badge/zero--knowledge-%E2%9C%93-black?style=flat-square)]()
 [![No WASM](https://img.shields.io/badge/WASM-free-black?style=flat-square)]()
