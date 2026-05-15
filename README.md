@@ -31,11 +31,11 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ## Screenshots
 
-**Web app — light mode [[LIVE DEMO](https://pacifaist.github.io/Offtoco/)]**
+**Web app — light mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
 ![Offtoco web app light mode](https://github.com/PacifAIst/Offtoco/blob/main/images/1.png)
 
-**Web app — dark mode**
+**Web app — dark mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
 ![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2.png)
 
@@ -43,7 +43,7 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ![Offtoco CLI](https://github.com/PacifAIst/Offtoco/blob/main/images/3.png)
 
-**Windows desktop popup over any file...**
+**Windows desktop popup after doing a right-click on any file...**
 
 ![Offtoco desktop popup](https://github.com/PacifAIst/Offtoco/blob/main/images/4.png)
 
