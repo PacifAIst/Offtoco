@@ -246,7 +246,7 @@ Compress-Archive -Path dist\zips\offtoco-web -DestinationPath dist\zips\offtoco-
 Remove-Item dist\zips\offtoco-web -Recurse -Force
 ```
 
-### CLI binaries (~85-95 MB each, standalone, no Node required)
+### CLI binaries (standalone, no Node required)
 
 ```powershell
 # Windows PowerShell — builds for Win, Linux, macOS
@@ -268,7 +268,7 @@ Compress-Archive -Path dist\cli\offtoco-linux   -DestinationPath dist\zips\offto
 Compress-Archive -Path dist\cli\offtoco-macos   -DestinationPath dist\zips\offtoco-cli-macos.zip   -Force
 ```
 
-### Windows desktop installer (~114 MB)
+### Windows desktop installer
 
 ```powershell
 cd desktop
