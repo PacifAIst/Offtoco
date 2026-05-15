@@ -29,13 +29,13 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ---
 
-## Screenshots (run locally in any web browser or from any Low-end hosting e.g., Namecheap)
+## Screenshots (run locally or in any hosting from low-end ones e.g., Namecheap)
 
-**Web app — light mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
+**Web app in web browser — light mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
 ![Offtoco web app light mode](https://github.com/PacifAIst/Offtoco/blob/main/images/1.png)
 
-**Web app — dark mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
+**Web app in web browser — dark mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
 ![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2.png)
 
