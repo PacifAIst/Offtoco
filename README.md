@@ -33,11 +33,11 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 **Web app in any web browser and OS — light mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
-![Offtoco web app light mode](https://github.com/PacifAIst/Offtoco/blob/main/images/1.png)
+![Offtoco web app light mode](https://github.com/PacifAIst/Offtoco/blob/main/images/1a.png)
 
 **Web app in any web browser and OS — dark mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
-![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2.png)
+![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2a.png)
 
 **CLI output in terminal (Linux / macOS / Windows console)**
 
