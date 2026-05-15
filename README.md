@@ -335,7 +335,7 @@ Hard constraints: **zero network calls** and **zero WASM in the browser bundle**
 
 ## License
 
-**GPL-3.0-or-later** (c) [PacifAIst](https://github.com/PacifAIst)
+**[GPL-3.0](https://github.com/PacifAIst/Offtoco/blob/main/LICENSE)** (c) [PacifAIst](https://github.com/PacifAIst)
 
 Tokenizer vocabularies keep their upstream licenses (MIT and Apache-2.0),
 both compatible with GPL-3.0 downstream distribution.
