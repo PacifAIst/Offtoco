@@ -31,20 +31,25 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ## Screenshots
 
-**Web app — light mode** [[LIVE DEMO](https://pacifaist.github.io/Offtoco/)]
-<img src="https://github.com/PacifAIst/Offtoco/blob/main/images/1.png?raw=true" width="600" alt="Offtoco web app light mode"/>
+**Web app — light mode [[LIVE DEMO](https://pacifaist.github.io/Offtoco/)]**
+
+![Offtoco web app light mode](https://github.com/PacifAIst/Offtoco/blob/main/images/1.png)
 
 **Web app — dark mode**
-<img src="https://github.com/PacifAIst/Offtoco/blob/main/images/2.png?raw=true" width="600" alt="Offtoco web app dark mode"/>
+
+![Offtoco web app dark mode](https://github.com/PacifAIst/Offtoco/blob/main/images/2.png)
 
 **CLI output in terminal**
-<img src="https://github.com/PacifAIst/Offtoco/blob/main/images/3.png?raw=true" width="600" alt="Offtoco CLI"/>
+
+![Offtoco CLI](https://github.com/PacifAIst/Offtoco/blob/main/images/3.png)
 
 **Windows desktop popup over any file...**
-<img src="https://github.com/PacifAIst/Offtoco/blob/main/images/4.png?raw=true" width="600" alt="Offtoco desktop popup"/>
+
+![Offtoco desktop popup](https://github.com/PacifAIst/Offtoco/blob/main/images/4.png)
 
 **... to show the next screen in Windows Explorer right-click menu**
-<img src="https://github.com/PacifAIst/Offtoco/blob/main/images/5.png?raw=true" width="600" alt="Offtoco right-click context menu"/>
+
+![Offtoco right-click context menu](https://github.com/PacifAIst/Offtoco/blob/main/images/5.png)
 ---
 
 ## Download — no installation, no internet needed after download
