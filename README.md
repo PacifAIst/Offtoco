@@ -342,3 +342,7 @@ Hard constraints: **zero network calls** and **zero WASM in the browser bundle**
 
 Tokenizer vocabularies keep their upstream licenses (MIT and Apache-2.0),
 both compatible with GPL-3.0 downstream distribution.
+
+---
+
+<p align="center">Made with ❤️ for the Local AI Community by PacifAIst</p>
