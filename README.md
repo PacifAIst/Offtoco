@@ -108,8 +108,6 @@ New-Item -Path "HKCU:\Software\Classes\Directory\Background\shell\Offtoco\comman
 
 Now right-click any file in Explorer and choose **Count Tokens (Offtoco)**.
 
-**Global hotkey:** with the app running in the system tray, press **Ctrl+Alt+T** to count whatever text is currently in your clipboard.
-
 To remove the right-click menus:
 ```powershell
 Remove-Item "HKCU:\Software\Classes\*\shell\Offtoco" -Recurse -Force -ErrorAction SilentlyContinue
