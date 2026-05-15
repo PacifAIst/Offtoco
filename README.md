@@ -29,7 +29,7 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ---
 
-## Screenshots
+## Screenshots (run locally in any web browser or from any Low-end hosting e.g., Namecheap)
 
 **Web app — light mode [[LIVE DEMO ON GITHUB PAGES](https://pacifaist.github.io/Offtoco/)]**
 
