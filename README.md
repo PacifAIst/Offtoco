@@ -47,7 +47,7 @@ Offtoco counts all three at once, instantly, with no internet connection require
 
 ![Offtoco desktop popup](https://github.com/PacifAIst/Offtoco/blob/main/images/4.png)
 
-**... to show the next screen**
+**... to show the next interface:**
 
 ![Offtoco right-click context menu](https://github.com/PacifAIst/Offtoco/blob/main/images/5.png)
 ---
